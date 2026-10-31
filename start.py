@@ -39,5 +39,21 @@ df["Delivery_Type"] = np.where(
     df["Delivery_Days"] <=4, "Fast","Slow"
 )
 print(df[["Order_ID","Delivery_Days","Delivery_Type"]])
-
-
+print("Average order value:", df["Order_Value"].mean())
+print("Average delivery days:",df["Delivery_Days"].mean())
+print("Median order value:",df["Order_Value"].median())
+print("Maximum delivery days:",df["Delivery_Days"].max())
+print("Orders more than value 100: ",df[df["Order_Value"]>100])
+print("Orders rated 5:",df[df["Customer_Rating"]==5])
+category_summary = df.groupby("Category").agg(
+    order_Count = ("Order_ID","count"),
+    Average_Order_Value = ("Order_Value","mean"),
+    Average_Delivery_Days = ("Delivery_Days","mean")
+)
+print("Category Summary: ",category_summary)
+print("Total orders by status: ")
+print(df["Status"].value_counts())
+print("Sorted by delivery time")
+print(df.sort_values("Delivery_Days",ascending=False))
+print("3 most expensive orders")
+print(df.nlargest(3,"Order_Value"))
