@@ -57,3 +57,20 @@ print("Sorted by delivery time")
 print(df.sort_values("Delivery_Days",ascending=False))
 print("3 most expensive orders")
 print(df.nlargest(3,"Order_Value"))
+#Converting order value column into numpy array
+values = df["Order_Value"].to_numpy()
+print("Order value mean:",np.mean(values))
+print("Order value minimum:",np.min(values))
+print("Order value maximum:",np.max(values))
+print("Order value standard Deviation:",np.std(values))
+#order values above 100
+result = np.where(values > 100)
+print(df.iloc[result[0]]["Order_ID"])
+print("rating is between 1 and 5")
+ratings = df["Customer_Rating"].to_numpy()
+print(np.all(ratings>=1)&(ratings<=5))
+#number of orders where delivery time 4 days or less
+fast_deliveries = np.sum(df["Delivery_Days"].to_numpy() <=4)
+percentage = (fast_deliveries/len(df)) * 100
+print("Fast deliveries", fast_deliveries)
+print("Percentage",percentage)
