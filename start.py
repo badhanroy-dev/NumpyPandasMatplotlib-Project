@@ -74,3 +74,25 @@ fast_deliveries = np.sum(df["Delivery_Days"].to_numpy() <=4)
 percentage = (fast_deliveries/len(df)) * 100
 print("Fast deliveries", fast_deliveries)
 print("Percentage",percentage)
+
+#Average order value by each category
+category_avg = df.groupby("Category")["Order_Value"].mean()
+plt.bar(category_avg.index, category_avg.values)
+plt.title("Average Order value by Category")
+plt.xlabel("Category")
+plt.ylabel("Average Order value")
+plt.show()
+#Distribution of delivery time
+plt.hist(df["Delivery_Days"], bins=8,edgecolor = "black")
+plt.title("Distribution of Delivery time")
+plt.xlabel("Delivery Days")
+plt.ylabel("Number of Orders")
+plt.tight_layout()
+plt.show()
+#Delivery time against customer rating
+plt.scatter(df["Delivery_Days"],df["Customer_Rating"])
+plt.title("Delivery time vs Customer Rating")
+plt.xlabel("Delivery Days")
+plt.ylabel("Customer Rating")
+plt.tight_layout()
+plt.show()
